@@ -8,13 +8,14 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed dependencies specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Make sure requirements.txt is present in the same directory as Dockerfile
+RUN pip install --no-cache-dir flask
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
 # Define environment variable
-ENV NAME World
+ENV FLASK_APP=app.py
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+# Run the Flask application
+CMD ["flask", "run", "--host=0.0.0.0"]
