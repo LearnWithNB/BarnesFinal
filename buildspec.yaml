@@ -5,6 +5,7 @@ env:
     AWS_DEFAULT_REGION: "us-east-1"
     IMAGE_REPO_NAME: "barnesas3" # ECR Repo
     AWS_ACCOUNT_ID: "905418278389"
+    NAMESPACE: "g7y3d5l5" # ECR namespace
 
 phases:
   pre_build:
@@ -18,13 +19,13 @@ phases:
       - echo Build started on $(date)
       - echo Building the Docker image...
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG public.ecr.aws/$AWS_DEFAULT_REGION/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG public.ecr.aws/$NAMESPACE/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on $(date)
       - echo Pushing the Docker image to public repository...
-      - docker push public.ecr.aws/$AWS_DEFAULT_REGION/$IMAGE_REPO_NAME:$IMAGE_TAG
-      - printf '[{"name":"py-app","imageUri":"%s"}]' public.ecr.aws/$AWS_DEFAULT_REGION/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
+      - docker push public.ecr.aws/$NAMESPACE/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - printf '[{"name":"py-app","imageUri":"%s"}]' public.ecr.aws/$NAMESPACE/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files:
