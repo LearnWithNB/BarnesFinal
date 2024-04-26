@@ -1,21 +1,20 @@
-# Use an official Python runtime as the base image
-FROM python:3.8-slim
+# Use an official Node.js runtime as the base image
+FROM node:14-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the Flask application code into the container
-COPY . /app
+# Copy package.json and package-lock.json into the container
+COPY package*.json ./
 
-# Install any needed dependencies specified in requirements.txt
-# Make sure requirements.txt is present in the same directory as Dockerfile
-RUN pip install --no-cache-dir flask
+# Install dependencies
+RUN npm install
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Copy the rest of the application code into the container
+COPY . .
 
-# Define environment variable
-ENV FLASK_APP=app.py
+# Expose port 3000 to the outside world
+EXPOSE 3000
 
-# Run the Flask application
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Command to run the application
+CMD ["node", "index.js"]
