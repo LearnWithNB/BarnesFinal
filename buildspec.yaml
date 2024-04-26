@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_DEFAULT_REGION: "us-east-1"
-    IMAGE_REPO_NAME: "barnesas3" # ECR Repo
+    IMAGE_REPO_NAME: "barnesas5" # ECR Repo
     AWS_ACCOUNT_ID: "905418278389"
     NAMESPACE: "g7y3d5l5" # ECR namespace
 
